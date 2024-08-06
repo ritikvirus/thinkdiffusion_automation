@@ -1,4 +1,4 @@
-name : Create EC2 Instance and Install Nginx 
+name: Create EC2 Instance and Install Nginx
 
 on:
   push:
@@ -8,19 +8,25 @@ on:
 jobs:
   create-ec2-and-setup:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
-      with: 
+      with:
         python-version: '3.x'
-      
+
     - name: Install dependencies
-      run: | 
+      run: |
         pip install boto3 paramiko
+
+    - name: Print environment variables
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}"
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+        echo "AWS_REGION=${{ secrets.AWS_REGION }}"
 
     - name: Run EC2 setup script
       env:
