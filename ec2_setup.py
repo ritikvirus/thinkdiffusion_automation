@@ -13,6 +13,7 @@ def create_ec2_instance():
         MaxCount=1,
         InstanceType='t2.micro',  # Update with the desired instance type
         KeyName='github_action',  # Update with your key pair name
+        SecurityGroupIds=['sg-0b1131d51bf2ce01d'],  # Update with your security group ID
         TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': 'Name', 'Value': 'GitHubActionsInstance'}]}]
     )
 
