@@ -20,7 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install boto3 paramiko pyyaml
+        pip install boto3 paramiko pyyaml requests
 
     - name: Print environment variables
       run: |

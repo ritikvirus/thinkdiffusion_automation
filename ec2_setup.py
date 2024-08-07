@@ -5,6 +5,7 @@ import paramiko
 import time
 import os
 import yaml
+import requests
 import wget
 
 def create_ec2_instance():
@@ -79,7 +80,13 @@ def check_and_download_models(models):
         model_path = f'/home/ubuntu/pre_models/models/checkpoints/{model_name}'
         if not os.path.exists(model_path):
             print(f"Downloading {model_name} from {url}")
-            wget.download(url, model_path)
+            response = requests.get(url, stream=True)
+            if response.status_code == 200:
+                with open(model_path, 'wb') as f:
+                    for chunk in response.iter_content(1024):
+                        f.write(chunk)
+            else:
+                print(f"Failed to download {model_name} from {url}")
 
 if __name__ == "__main__":
     config = read_config()
@@ -88,8 +95,7 @@ if __name__ == "__main__":
     public_dns = wait_for_instance(instance_id)
 
     commands = [
-        'sudo apt-get update',
-        'sudo apt-get install nginx -y'
+        'sudo apt-get update'
     ]
 
     if config.get('comfyui_update'):
