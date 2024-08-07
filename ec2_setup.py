@@ -4,6 +4,8 @@ import boto3
 import paramiko
 import time
 import os
+import yaml
+import wget
 
 def create_ec2_instance():
     ec2 = boto3.resource('ec2', region_name=os.environ['AWS_REGION'])
@@ -68,7 +70,20 @@ def execute_remote_commands(ip, key_file, commands):
     if retry_count >= max_retries:
         print(f"Failed to connect after {max_retries} attempts. Exiting.")
 
+def read_config():
+    with open('config.yaml', 'r') as file:
+        return yaml.safe_load(file)
+
+def check_and_download_models(models):
+    for model_name, url in models.items():
+        model_path = f'/home/ubuntu/pre_models/models/checkpoints/{model_name}'
+        if not os.path.exists(model_path):
+            print(f"Downloading {model_name} from {url}")
+            wget.download(url, model_path)
+
 if __name__ == "__main__":
+    config = read_config()
+
     instance_id = create_ec2_instance()
     public_dns = wait_for_instance(instance_id)
 
@@ -76,5 +91,15 @@ if __name__ == "__main__":
         'sudo apt-get update',
         'sudo apt-get install nginx -y'
     ]
+
+    if config.get('comfyui_update'):
+        commands.append('cd /home/ubuntu/ComfyUI && git fetch && git pull')
+
+    if config.get('comfyui_requirements_install'):
+        commands.append('cd /home/ubuntu/ComfyUI && pip install -r requirements.txt')
+
     key_file = 'github_action.pem'  # Update with the path to your private key file
     execute_remote_commands(public_dns, key_file, commands)
+
+    checkpoints_models_list = config.get('checkpoints_models_list', {})
+    check_and_download_models(checkpoints_models_list)
