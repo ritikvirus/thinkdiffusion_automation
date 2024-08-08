@@ -1,6 +1,6 @@
 comfyui_update: true
 comfyui_requirements_install: true
 checkpoints_models_list:
-  01_ThinkDiffusionXL: https://huggingface.co/ThinkDiffusion/ThinkDiffusionXL/resolve/main/ThinkDiffusionXL.safetensors?download=true
-  dreamshaperXL_turboDpmppSDE: https://huggingface.co/BitStarWalkin/RPG_models/resolve/main/dreamshaperXL_turboDpmppSDE.safetensors?download=true
+  checkpoints: https://huggingface.co/ThinkDiffusion/ThinkDiffusionXL/resolve/main/ThinkDiffusionXL.safetensors?download=true
+  checkpoints: https://huggingface.co/BitStarWalkin/RPG_models/resolve/main/dreamshaperXL_turboDpmppSDE.safetensors?download=true
 controlnet_models_list: {}

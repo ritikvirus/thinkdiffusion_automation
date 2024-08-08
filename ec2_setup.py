@@ -77,7 +77,7 @@ def read_config():
 
 def check_and_download_models(models):
     for model_name, url in models.items():
-        model_path = f'/home/ubuntu/pre_models/models/checkpoints/{model_name}'
+        model_path = f'/home/ubuntu/pre_models/models/{model_name}'
         if not os.path.exists(model_path):
             print(f"Downloading {model_name} from {url}")
             response = requests.get(url, stream=True)
