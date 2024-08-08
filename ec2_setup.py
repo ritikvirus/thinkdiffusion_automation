@@ -95,7 +95,7 @@ if __name__ == "__main__":
     public_dns = wait_for_instance(instance_id)
 
     commands = [
-        'sudo apt-get update'
+        'sudo apt-get update -y'
     ]
 
     if config.get('comfyui_update'):
