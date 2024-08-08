@@ -15,7 +15,7 @@ def create_ec2_instance():
         MinCount=1,
         MaxCount=1,
         InstanceType='g6.xlarge',  # Update with the desired instance type
-        KeyName='gitaction',  # Update with your key pair name
+        KeyName='gitaction_key',  # Update with your key pair name
         SecurityGroupIds=['sg-022d05b4b6bd78b78'],  # Update with your security group ID
         TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': 'Name', 'Value': 'GitHubActionsInstance'}]}]
     )
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     if config.get('comfyui_requirements_install'):
         commands.append('cd /home/ubuntu/ComfyUI && pip install -r requirements.txt')
 
-    key_file = 'gitaction.pem'  # Update with the path to your private key file
+    key_file = 'gitaction_key.pem'  # Update with the path to your private key file
     execute_remote_commands(public_dns, key_file, commands)
 
     checkpoints_models_list = config.get('checkpoints_models_list', {})
