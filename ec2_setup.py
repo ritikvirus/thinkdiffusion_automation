@@ -15,7 +15,7 @@ def create_ec2_instance():
         MinCount=1,
         MaxCount=1,
         InstanceType='g6.xlarge',  # Update with the desired instance type
-        KeyName='github_action',  # Update with your key pair name
+        KeyName='gitaction',  # Update with your key pair name
         SecurityGroupIds=['sg-022d05b4b6bd78b78'],  # Update with your security group ID
         TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': 'Name', 'Value': 'GitHubActionsInstance'}]}]
     )
