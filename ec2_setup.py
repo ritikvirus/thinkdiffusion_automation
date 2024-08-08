@@ -104,7 +104,7 @@ if __name__ == "__main__":
     if config.get('comfyui_requirements_install'):
         commands.append('cd /home/ubuntu/ComfyUI && pip install -r requirements.txt')
 
-    key_file = 'github_action.pem'  # Update with the path to your private key file
+    key_file = 'gitaction.pem'  # Update with the path to your private key file
     execute_remote_commands(public_dns, key_file, commands)
 
     checkpoints_models_list = config.get('checkpoints_models_list', {})
