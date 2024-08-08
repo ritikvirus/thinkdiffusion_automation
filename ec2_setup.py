@@ -11,10 +11,10 @@ import wget
 def create_ec2_instance():
     ec2 = boto3.resource('ec2', region_name=os.environ['AWS_REGION'])
     instances = ec2.create_instances(
-        ImageId='ami-0862be96e41dcbf74',  # Update with the desired AMI ID
+        ImageId='ami-0c220b6be555839ef',  # Update with the desired AMI ID
         MinCount=1,
         MaxCount=1,
-        InstanceType='t2.micro',  # Update with the desired instance type
+        InstanceType='g6.xlarge',  # Update with the desired instance type
         KeyName='github_action',  # Update with your key pair name
         SecurityGroupIds=['sg-0b1131d51bf2ce01d'],  # Update with your security group ID
         TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': 'Name', 'Value': 'GitHubActionsInstance'}]}]
